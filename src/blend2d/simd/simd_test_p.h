@@ -12,6 +12,7 @@
 #include "../string_p.h"
 #include "../simd/simd_p.h"
 
+#undef  double
 //! \cond NEVER
 
 namespace SIMDTests {
@@ -1668,5 +1669,9 @@ static BL_NOINLINE void test_integer(const char* ext) noexcept {
 } // {SIMDTests}
 
 //! \endcond
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 #endif // BLEND2D_SIMD_SIMD_TEST_P_H_INCLUDED
