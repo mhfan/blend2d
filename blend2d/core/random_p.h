@@ -9,6 +9,7 @@
 #include <blend2d/core/random.h>
 #include <blend2d/simd/simd_p.h>
 
+#undef  double
 //! \cond INTERNAL
 //! \addtogroup blend2d_internal
 //! \{
@@ -113,5 +114,9 @@ static BL_INLINE double next_double(BLRandom* self) noexcept {
 
 //! \}
 //! \endcond
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 #endif // BLEND2D_RANDOM_P_H_INCLUDED

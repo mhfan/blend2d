@@ -7,6 +7,7 @@
 #include <blend2d/core/runtime_p.h>
 #include <blend2d/support/intops_p.h>
 
+#undef  double
 // PTHREAD_STACK_MIN would be defined either by <pthread.h> or <limits.h>.
 #include <limits.h>
 #include <stdio.h>

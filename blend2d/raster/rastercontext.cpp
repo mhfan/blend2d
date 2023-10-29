@@ -2529,7 +2529,9 @@ struct BLGlyphPlacementRawData {
   uint64_t data[2];
 };
 
+#ifndef BLEND2D_NO_DFP
 BL_STATIC_ASSERT(sizeof(BLGlyphPlacementRawData) == sizeof(BLPoint));
+#endif//XXX:
 BL_STATIC_ASSERT(sizeof(BLGlyphPlacementRawData) == sizeof(BLGlyphPlacement));
 
 template<uint32_t OpType>

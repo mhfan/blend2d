@@ -9,6 +9,7 @@
 #include <blend2d/core/api-internal_p.h>
 #include <blend2d/support/intops_p.h>
 
+#undef  double
 #include <asmjit/ujit.h>
 
 //! \cond INTERNAL
@@ -106,5 +107,9 @@ static BL_INLINE size_t vec_count_of(VecWidth vw, DataWidth data_width, PixelCou
 
 //! \}
 //! \endcond
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 #endif // BLEND2D_PIPELINE_JIT_JITBASE_P_H_INCLUDED

@@ -11,6 +11,7 @@
 #include <blend2d/support/bitops_p.h>
 #include <blend2d/tables/tables_p.h>
 
+#undef  double
 #include <arm_neon.h>
 
 #if defined(__clang__)
@@ -3002,5 +3003,9 @@ BL_INLINE_NODEBUG ArrayLookupResult<16> array_lookup_u32_eq_aligned16<16>(const 
 
 //! \}
 //! \endcond
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 #endif // BLEND2D_SIMD_SIMDARM_P_H_INCLUDED

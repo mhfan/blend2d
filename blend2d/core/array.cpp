@@ -13,6 +13,7 @@
 #include <blend2d/support/memops_p.h>
 #include <blend2d/support/ptrops_p.h>
 
+#undef  double
 namespace bl::ArrayInternal {
 
 // bl::Array - Private - Tables

@@ -81,4 +81,6 @@
   #pragma warning(pop)
 #endif
 
+#undef  double	// don't pollute external world
+
 #endif // BLEND2D_H_INCLUDED

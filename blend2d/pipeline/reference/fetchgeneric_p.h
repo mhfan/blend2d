@@ -11,6 +11,7 @@
 #include <blend2d/support/intops_p.h>
 #include <blend2d/support/vecops_p.h>
 
+#undef  double
 //! \cond INTERNAL
 //! \addtogroup blend2d_pipeline_reference
 //! \{
@@ -1314,5 +1315,9 @@ struct FetchGradientDispatch<FetchType::kGradientConicDither, DstPixelT> {
 
 //! \}
 //! \endcond
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 #endif // BLEND2D_PIPELINE_REFERENCE_FETCHGENERIC_P_H_INCLUDED

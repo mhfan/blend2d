@@ -679,6 +679,17 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU|Clang")
   endif()
 endif()
 
+if (BLEND2D_NO_DFP)	# -DBLEND2D_TEST=ON -DBLEND2D_DEMOS=ON
+  # CXX=g++-15 CC=gcc-15 cmake .. -DBLEND2D_NO_DFP=ON
+  message("-- Use single(rather than double) precision floating point")
+  set(DFP_FLAGS -fsingle-precision-constant -DBLEND2D_NO_DFP)
+  list(REMOVE_ITEM BLEND2D_WARNING_CFLAGS -Wdouble-promotion)
+  list(REMOVE_ITEM BLEND2D_WARNING_CFLAGS -Wconversion)	# XXX:
+  list(APPEND BLEND2D_SANITIZE_CFLAGS ${DFP_FLAGS}) # to compile samples
+  list(APPEND BLEND2D_PRIVATE_CFLAGS  ${DFP_FLAGS})
+  list(APPEND BLEND2D_CFLAGS          ${DFP_FLAGS})
+endif()
+
 if (BLEND2D_TARGET_ARCH MATCHES "^(X86|X86_64)$")
   set(BLEND2D_PRIVATE_CFLAGS_SSE2 "")
   if ("x${CMAKE_CXX_COMPILER_ID}" STREQUAL "xMSVC" OR "x${CMAKE_CXX_COMPILER_FRONTEND_VARIANT}" STREQUAL "xMSVC")
@@ -884,7 +895,7 @@ if (BLEND2D_BUILD_WITH_JIT)
           "Alternatively, if you use C/C++ package managers and would like to use\n"
           "a packaged asmjit instead, set 'BLEND2D_EXTERNAL_ASMJIT' cmake variable to ON.\n"
           "This way Blend2D would not try to auto-detect the location of asmjit and would\n"
-          "try to find it by using find_package() instead. Please note that using extenal\n"
+          "try to find it by using find_package() instead. Please note that using external\n"
           "asmjit means that Blend2D would not be able to avoid linking to a C++ standard\n"
           "library, which it avoids by default when building a shared Blend2D library with\n"
           "bundled asmjit."

@@ -10,6 +10,7 @@
 #include <blend2d/core/api-impl.h>
 #include <blend2d/core/object.h>
 
+#undef  double
 // C Headers
 // =========
 
@@ -615,5 +616,9 @@ namespace bl { using namespace BLInternal; }
 
 //! \}
 //! \endcond
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 #endif // BLEND2D_API_INTERNAL_P_H_INCLUDED
