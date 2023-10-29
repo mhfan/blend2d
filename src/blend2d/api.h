@@ -1573,4 +1573,8 @@ typedef BLArrayView BLDataView;
 
 //! \}
 
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
+
 #endif // BLEND2D_API_H_INCLUDED

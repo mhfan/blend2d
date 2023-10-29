@@ -24,6 +24,10 @@ include(GNUInstallDirs)
 # Blend2D - Configuration
 # =======================
 
+#set(BLEND2D_TEST  TRUE)
+#set(BLEND2D_EMBED TRUE)
+#set(CMAKE_BUILD_TYPE Release)
+
 if (NOT DEFINED BLEND2D_DIR)
   set(BLEND2D_DIR "${CMAKE_CURRENT_LIST_DIR}")
 endif()
@@ -89,6 +93,17 @@ set(BLEND2D_SANITIZE_CFLAGS "${BLEND2D_SANITIZE_OPTS}") # Compiler flags require
 set(BLEND2D_SANITIZE_LFLAGS "")                         # Linker flags required by currently enabled sanitizers.
 set(BLEND2D_NO_STDCXX_CFLAGS "")                        # Private compiler flags to disable linking to a standard C++ library.
 set(BLEND2D_NO_STDCXX_LFLAGS "")                        # Private linker flags to disable linking to a standard C++ library.
+
+if (BLEND2D_NO_DFP)
+  # CXX=g++-13 CC=gcc-13 cmake .. -DBLEND2D_NO_DFP=TRUE -DBLEND2D_TEST=TRUE
+  message("-- Use single(rather than double) precision floating point")
+  list(APPEND BLEND2D_PRIVATE_CFLAGS	# XXX: must compiled with GCC/G++
+      -fsingle-precision-constant -DBLEND2D_NO_DFP)
+  list(APPEND BLEND2D_SANITIZE_CFLAGS	# to compile samples correctly
+      -fsingle-precision-constant -DBLEND2D_NO_DFP)
+  #set(CMAKE_CXX_COMPILER g++-13)
+  #set(CMAKE_C_COMPILER   gcc-13)
+endif()
 
 set(BLEND2D_SRC_LIST
   blend2d.h
@@ -913,6 +928,7 @@ if (NOT BLEND2D_NO_JIT)
     message(STATUS "Dependency: Trying to find a bundled AsmJit (BLEND2D_EXTERNAL_ASMJIT isn't set)")
     if (NOT DEFINED ASMJIT_DIR)
       foreach(dir "${BLEND2D_DIR}/3rdparty/asmjit"
+		  "${CMAKE_CURRENT_LIST_DIR}/asmjit"
                   "${CMAKE_CURRENT_LIST_DIR}/../asmjit")
         if (EXISTS ${dir}/CMakeLists.txt)
           set(ASMJIT_DIR "${dir}" CACHE PATH "Location of 'asmjit'")

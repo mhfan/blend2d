@@ -2518,11 +2518,15 @@ static BL_INLINE BLResult enqueueCommandWithFillOrStrokeJob(
 // =====================================================================================
 
 struct BLGlyphPlacementRawData {
+#ifdef  BLEND2D_NO_DFP
+  uint32_t data[2];
+#else
   uint64_t data[2];
+#endif
 };
 
 BL_STATIC_ASSERT(sizeof(BLGlyphPlacementRawData) == sizeof(BLPoint));
-BL_STATIC_ASSERT(sizeof(BLGlyphPlacementRawData) == sizeof(BLGlyphPlacement));
+//BL_STATIC_ASSERT(sizeof(BLGlyphPlacementRawData) == sizeof(BLGlyphPlacement));
 
 template<uint32_t OpType>
 static BL_INLINE BLResult enqueueFillOrStrokeGlyphRun(

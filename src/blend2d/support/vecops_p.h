@@ -11,6 +11,7 @@
 #include "../support/intops_p.h"
 #include "../support/traits_p.h"
 
+#undef  double
 //! \cond INTERNAL
 //! \addtogroup blend2d_support
 //! \{
@@ -346,5 +347,9 @@ template<typename T> BL_INLINE_NODEBUG Vec2<T> swap(const Vec2<T>& a) noexcept {
 
 //! \}
 //! \endcond
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 #endif // BLEND2D_SUPPORT_VECOPS_P_H_INCLUDED

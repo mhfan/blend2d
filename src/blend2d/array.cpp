@@ -13,6 +13,7 @@
 #include "support/memops_p.h"
 #include "support/ptrops_p.h"
 
+#undef  double
 namespace bl {
 namespace ArrayInternal {
 

@@ -12,6 +12,7 @@
 #include "../tables/tables_p.h"
 #include "../support/mathconst_p.h"
 
+#undef  double
 //! \cond INTERNAL
 //! \addtogroup blend2d_internal
 //! \{
@@ -495,6 +496,10 @@ static BL_INLINE_NODEBUG float atan2(float y, float x) noexcept { return ::atan2
 static BL_INLINE_NODEBUG double atan2(double y, double x) noexcept { return ::atan2(y, x); }
 
 //! \}
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 //! \name Linear Interpolation
 //! \{

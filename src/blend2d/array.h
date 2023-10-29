@@ -8,6 +8,7 @@
 
 #include "object.h"
 
+#undef  double
 //! \addtogroup blend2d_api_globals
 //! \{
 
@@ -247,6 +248,7 @@ template<> BL_INLINE_NODEBUG BLResult replaceItem(BLArrayCore* self, size_t inde
 template<> BL_INLINE_NODEBUG BLResult replaceItem(BLArrayCore* self, size_t index, const uint16_t& item) noexcept { return blArrayReplaceU16(self, index, item); }
 template<> BL_INLINE_NODEBUG BLResult replaceItem(BLArrayCore* self, size_t index, const uint32_t& item) noexcept { return blArrayReplaceU32(self, index, item); }
 template<> BL_INLINE_NODEBUG BLResult replaceItem(BLArrayCore* self, size_t index, const uint64_t& item) noexcept { return blArrayReplaceU64(self, index, item); }
+template<> BL_INLINE_NODEBUG BLResult replaceItem(BLArrayCore* self, size_t index, const float& item) noexcept { return blArrayReplaceF32(self, index, item); }
 template<> BL_INLINE_NODEBUG BLResult replaceItem(BLArrayCore* self, size_t index, const double& item) noexcept { return blArrayReplaceF64(self, index, item); }
 
 } // {anonymous}
@@ -755,5 +757,9 @@ public:
 //! \}
 
 //! \}
+
+#ifdef  BLEND2D_NO_DFP
+#define double float
+#endif
 
 #endif // BLEND2D_ARRAY_H_INCLUDED
